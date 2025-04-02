@@ -617,6 +617,9 @@ def _get_files(compile_action):
 
     # First, we do the obvious thing: Filter args to those that look like source files.
     source_file_candidates = [arg for arg in compile_action.arguments if not arg.startswith('-') and arg.endswith(_get_files.source_extensions)]
+    if compile_action.arguments[0].endswith("cc_wrapper.sh"):
+        return {}, set()
+
     assert source_file_candidates, f"No source files found in compile args: {compile_action.arguments}.\nPlease file an issue with this information!"
     source_file = source_file_candidates[0]
 
